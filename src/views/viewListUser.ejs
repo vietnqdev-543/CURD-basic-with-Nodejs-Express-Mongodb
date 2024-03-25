@@ -54,7 +54,7 @@
                     <td><%= user.city %></td>
                     <td style="display: flex;">
                         <a class="btn" href="/update/<%= user._id %>">Edit</a>  
-                        <form class="btn" action="/deleteUser/<%= user._id %>" method="post">
+                        <form class="btn" action="/user/deleteUser/<%= user._id %>" method="post">
                             <button style="padding: 0; border: none;background-color: transparent; cursor: pointer;">Delete</button>
                         </form>
                     </td>

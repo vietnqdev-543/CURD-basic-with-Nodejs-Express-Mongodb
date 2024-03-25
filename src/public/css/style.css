@@ -25,3 +25,8 @@
     font-weight: bold;
     color: black;
 }
+.btn{
+    background-color: lightblue;
+    border-radius: 5px;
+    border: none;
+}
