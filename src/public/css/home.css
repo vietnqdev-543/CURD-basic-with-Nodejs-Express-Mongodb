@@ -1,0 +1,31 @@
+table, th, td {
+    border:1px solid black;
+  }
+  th{
+    background-color: lightblue;
+    padding: 10px 20px;
+  }
+  td{
+    padding: 10px 20px;
+  }
+
+  .form{
+    width: 30%;
+    height: auto;
+    padding: 20px 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+.form input{
+    padding: 10px;
+    margin: 10px 0;
+    outline: none;
+}
+.form .button{
+    background-color: lightblue;
+    border: none;
+    border-radius: 5px;
+}
