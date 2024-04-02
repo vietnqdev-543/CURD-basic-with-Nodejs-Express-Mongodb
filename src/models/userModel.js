@@ -3,8 +3,9 @@ const userSchema = new mongoose.Schema({
     email: String,
     name: String,
     password : String ,
+    isAdmin : Boolean ,
     phone : String ,
-    city: String
+    city: String ,
 
   },
   {timestamps :true}

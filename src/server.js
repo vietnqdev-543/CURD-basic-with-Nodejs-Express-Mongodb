@@ -1,12 +1,13 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const cors = require('cors')
 require('dotenv').config()
 const mongoose = require('mongoose')
 const router = require('./routes/web')
 app.use(express.json()); // Used to parse JSON bodies
 app.use(express.urlencoded()); //Parse URL-encoded bodies
-
+app.use(cors())
 const port = process.env.PORT
 const url = process.env.MONGO_URI
 const hostname = 'http://localhost:'
