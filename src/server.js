@@ -6,10 +6,12 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const router = require('./routes/web')
 app.use(express.json()); // Used to parse JSON bodies
-app.use(express.urlencoded()); //Parse URL-encoded bodies
+// app.use(express.urlencoded()); //Parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true }));
+
 app.use(cors())
 const port = process.env.PORT
-const url = process.env.MONGO_URI
+const url = process.env.MONGO_URL
 const hostname = 'http://localhost:'
 
 //config template ejs

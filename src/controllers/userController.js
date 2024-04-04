@@ -3,35 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-// const callCreateUser = async (req, res) => {
-    
-//     try {
-//         const { email, name, password, phone } = req.body;
-//         const existingUser = await userModal.findOne({ email });
-//         if (existingUser) {
-//             return res.status(400).json({ message: 'Email already exists' });
-//         }
 
-//         // Create a new user object
-//         const newUser = new userModal({
-//             email,
-//             name,
-//             password,
-//             phone ,
-//             isAdmin : false
-//         });
-
-       
-//         await newUser.save();
-
-//         // Send success response
-//         return res.status(201).json({ message: 'User created successfully' });
-//     } catch (error) {
-//         // Handle any errors
-//         console.error('Error creating user:', error);
-//         return res.status(500).json({ message: 'Internal server error' });
-//     }
-// };
 
 
 
@@ -45,13 +17,14 @@ const callCreateUser = async (req, res) => {
         }
 
         // Hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create a new user object
         const newUser = new userModal({
             email,
             name,
-            password: hashedPassword,
+            // password: hashedPassword,
+            password ,
             phone,
             isAdmin: false
         });
@@ -111,16 +84,29 @@ const callAuthenticatedToken = (req , res, next) => {
     });
 }
 
-const callUpdateUser = async(req,res) => {
-    try {
-        const  {email , name ,password , phone , city} = req.body
-        await userModal.findByIdAndUpdate(req.params._id , {email : email , name : name , password : password , phone : phone , city : city })
-        res.redirect('/view')
-    } catch (error) {
-        console.log.error(error)
-        res.status(500).send('Error')
-    }
+// const callUpdateUser = async(req,res) => {
+//     try {
+//         const  {email , name ,password , phone , city} = req.body
+//         await userModal.findByIdAndUpdate(req.params._id , {email : email , name : name , password : password , phone : phone , city : city })
+//         res.redirect('/view')
+//     } catch (error) {
+//         console.log.error(error)
+//         res.status(500).send('Error')
+//     }
 
+// }
+const callUpdateUser = async(req , res) => {
+    const {id , email , name , phone} = req.body
+    try {
+        const userUpdate = await userModal.findByIdAndUpdate(id , {email : email , name : name , phone : phone})
+        res.status(200).json({
+            status : 'ok bro',
+            user : userUpdate
+        }
+        )
+    } catch (error) {
+        res.status(500).send('Lỗi rồi thèn loz')
+    }
 }
 const callDeleteUser=async(req, res)=>{
     const id = req.params._id
@@ -142,6 +128,15 @@ const callLogoutUser = ( req,res) => {
     }
 }
 
+const callFetchAllUser = async(req, res) => {
+    const listUsers = await userModal.find({})
+    try {
+        res.status(200).send(listUsers)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+
 module.exports = {
-    callCreateUser   , callUpdateUser, callDeleteUser , callLoginUser , callAuthenticatedToken , callLogoutUser
+    callCreateUser   , callUpdateUser, callDeleteUser , callLoginUser , callAuthenticatedToken , callLogoutUser , callFetchAllUser
 }
