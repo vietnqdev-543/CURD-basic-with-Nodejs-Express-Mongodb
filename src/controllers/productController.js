@@ -5,6 +5,9 @@ const callCreateProduct = (req,res) => {
         name: req.body.name, 
         price: req.body.price,
         brand : req.body.brand ,
+        sex : req.body.sex ,
+        waterproof : req.body.waterproof ,
+        size : req.body.size ,
         image : req.body.image , 
         description : req.body.description ,
     })
@@ -20,8 +23,17 @@ const callCreateProduct = (req,res) => {
     }
 }
 
-const callUpdateProduct = (req, res) => {
-    res.send('update')
+const callUpdateProduct = async(req, res) => {
+    const {_id , name , brand , price , sex , waterproof , size , image , description} = req.body
+    try {
+        const productUpdate = productModal.findByIdAndUpdate({_id , name : name , brand :  brand , price : price , sex : sex , waterproof : waterproof , size : size , image : image , description : description })
+        res.status(200).json({
+            status : 'UpdateSuccesFully', 
+            userUpdate : productUpdate
+        })
+    } catch (error) {
+        res.status(500).send(error)
+    }
 }
 
 const callDeleteProduct = async(req, res) => {

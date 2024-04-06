@@ -23,7 +23,7 @@ router.get('/user/fetchAllUser' , callFetchAllUser)
 
 //product
 router.post('/product/createProduct' , callCreateProduct)
-router.post('/product/updateProduct/:_id' , callUpdateProduct)
+router.post('/product/updateProduct' , callUpdateProduct)
 router.post('/product/deleteProduct/:_id' , callDeleteProduct)
 router.get('/product/fetchAllProduct' , callFetchAllProduct)
 
