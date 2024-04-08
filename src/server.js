@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors())
 const port = process.env.PORT
-const url = process.env.MONGO_URL
+const url = process.env.MONGO_URI
 const hostname = 'http://localhost:'
 
 //config template ejs

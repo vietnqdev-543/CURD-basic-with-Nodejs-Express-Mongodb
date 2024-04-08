@@ -7,6 +7,8 @@ const callCreateProduct = (req,res) => {
         brand : req.body.brand ,
         sex : req.body.sex ,
         waterproof : req.body.waterproof ,
+        quantity : req.body.quantity ,
+        sold : req.body.sold ,
         size : req.body.size ,
         image : req.body.image , 
         description : req.body.description ,
@@ -24,9 +26,9 @@ const callCreateProduct = (req,res) => {
 }
 
 const callUpdateProduct = async(req, res) => {
-    const {_id , name , brand , price , sex , waterproof , size , image , description} = req.body
+    const  {_id ,name , brand , sex ,price ,waterproof ,size ,quantity ,sold , description , image} = req.body
     try {
-        const productUpdate = productModal.findByIdAndUpdate({_id , name : name , brand :  brand , price : price , sex : sex , waterproof : waterproof , size : size , image : image , description : description })
+        const productUpdate = await productModal.findByIdAndUpdate(_id ,{ name : name , brand :  brand , price : price , sex : sex , waterproof : waterproof , size : size , image : image , quantity:quantity , sold : sold ,description : description })
         res.status(200).json({
             status : 'UpdateSuccesFully', 
             userUpdate : productUpdate
@@ -34,18 +36,25 @@ const callUpdateProduct = async(req, res) => {
     } catch (error) {
         res.status(500).send(error)
     }
+  
 }
 
-const callDeleteProduct = async(req, res) => {
-    const id = req.params._id
-    await productModal.findByIdAndDelete(id)
+const callDeleteProduct = async (req, res) => {
+    const { _id } = req.params;
+    await productModal.findByIdAndDelete(_id);
     try {
-        res.redirect('/productPage')
+        res.status(200).json({
+            status: 'Delete successfully : ',
+            _id,
+        });
     } catch (error) {
-        console.log(error)
-        res.status(500).send('error' , error)
+        console.log(error);
+        res.status(500).send('error', error);
     }
 }
+
+
+
 const callFetchAllProduct = async(req, res) => {
     const listProducts  =await productModal.find({})
     try {
@@ -57,4 +66,5 @@ const callFetchAllProduct = async(req, res) => {
 }
 
 
-module.exports = {callCreateProduct ,callUpdateProduct , callDeleteProduct , callFetchAllProduct} 
+
+module.exports = {callCreateProduct ,callUpdateProduct , callFetchAllProduct , callDeleteProduct} 
