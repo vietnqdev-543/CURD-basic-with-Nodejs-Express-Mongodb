@@ -61,7 +61,7 @@ const callLoginUser = async (req, res) => {
 const callUpdateUser = async(req , res) => {
     const {id , email , name , phone} = req.body
     try {
-        const userUpdate = await userModal.findByIdAndUpdate(id , {email : email , name : name , phone : phone})
+        const userUpdate = await userModal.findByIdAndUpdate(id , {email : email , name : name , phone : phone}, { new: true })
         res.status(200).json({
             status : 'Cập nhật thông tin thành công',
             user : userUpdate
@@ -71,6 +71,47 @@ const callUpdateUser = async(req , res) => {
         res.status(500).send(error)
     }
 }
+const callChangePassword = async(req , res) => {
+    const {id , password , newPassword} = req.body
+    try {
+         const passwordUpdate = await userModal.findByIdAndUpdate(id , {password : newPassword}, { new: true })
+        res.status(200).json({
+            status : 'Cập nhật thông tin thành công',
+            userUpdate : passwordUpdate     
+        }
+        )
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+
+// const callChangePassword = async (req, res) => {
+//     const { id, password, newPassword } = req.body;
+    
+//     try {
+//         // Kiểm tra mật khẩu hiện tại có đúng không
+//         const user = await userModal.findById(id);
+//         if (!user) {
+//             return res.status(404).json({ message: 'Tài khoản không tồn tại' });
+//         }
+//         const isPasswordCorrect = await compare(password, user.password);
+//         if (!isPasswordCorrect) {
+//             return res.status(400).json({ message: 'Mật khẩu cũ không đúng' });
+//         }
+//         // Cập nhật mật khẩu mới
+//         const passwordUpdate = await userModal.findByIdAndUpdate(id, { password:newPassword }, { new: true });
+
+//         // Trả về kết quả
+//         res.status(200).json({
+//             message: 'Change password success',
+//             data: passwordUpdate
+//         });
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send(error);
+//     }
+// };
+
 const callDeleteUser = async(req, res)=>{
     const _id = req.params
   
@@ -101,6 +142,7 @@ const callFetchAllUser = async(req, res) => {
     }
 }
 
+
 module.exports = {
-    callCreateUser   , callUpdateUser, callDeleteUser , callLoginUser  , callLogoutUser , callFetchAllUser
+    callCreateUser   , callUpdateUser, callDeleteUser , callLoginUser  , callLogoutUser , callFetchAllUser , callChangePassword
 }

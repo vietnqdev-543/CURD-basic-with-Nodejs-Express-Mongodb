@@ -1,3 +1,4 @@
+const categoryModal = require('../models/categoryModal')
 const productModal = require('../models/productModal')
 
 const callCreateProduct = (req,res) => {
@@ -12,13 +13,12 @@ const callCreateProduct = (req,res) => {
         size : req.body.size ,
         image : req.body.image , 
         description : req.body.description ,
+        slider : req.body.slider
     })
     newProduct.save()
     try {
         console.log('tạo product thành công')
         res.status(200).send('create product success')
-        // res.redirect('/productPage')
-        // location.reload(true)
     } catch (error) {
         console.log(error)
         res.status(500).send('Error while creating a new Product')
@@ -64,7 +64,33 @@ const callFetchAllProduct = async(req, res) => {
         res.status(500).send('Đã có lỗi xảy ra');
     }
 }
+const callFetchProductById = async (req, res) => {
+    const id = req.params.id;
+    const idnew =req.params
+    const product = await productModal.findById(id)
+    if(!product){
+        return res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
+    }
+   try {
+    res.status(200).json({
+        message : 'ok' ,
+        data : product ,
+    });
+   } catch (error) {
+        res.status(500).send(error)
+   }
+  }
 
-
-
-module.exports = {callCreateProduct ,callUpdateProduct , callFetchAllProduct , callDeleteProduct} 
+  const callHandleUpLoadFile = (req, res) => {
+    const image = req.body
+    try {
+        res.status(200).json({
+            message : 'upload file thành công' ,
+            data : image
+        })
+    } catch (error) {
+        
+    }
+  }
+  
+module.exports = {callCreateProduct ,callUpdateProduct , callFetchAllProduct , callDeleteProduct , callFetchProductById , callHandleUpLoadFile} 

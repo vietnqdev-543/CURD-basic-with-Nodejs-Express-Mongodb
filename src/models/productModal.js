@@ -9,6 +9,7 @@ const productSchema = new mongoose.Schema({
     quantity: {type : Number , require : true} , 
     sold : {type : Number , require : true } ,
     description :{type : String , require :true} ,
+    slider : [{type : String , require :true}], 
     image : {type : String , require :true} ,
 },
 {
