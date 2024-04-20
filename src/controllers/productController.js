@@ -91,6 +91,6 @@ const callFetchProductById = async (req, res) => {
     } catch (error) {
         
     }
-  }
+  } 
   
 module.exports = {callCreateProduct ,callUpdateProduct , callFetchAllProduct , callDeleteProduct , callFetchProductById , callHandleUpLoadFile} 

@@ -59,9 +59,9 @@ const callLoginUser = async (req, res) => {
 };
 
 const callUpdateUser = async(req , res) => {
-    const {id , email , name , phone} = req.body
+    const {id , email , name  , phone , avatar} = req.body
     try {
-        const userUpdate = await userModal.findByIdAndUpdate(id , {email : email , name : name , phone : phone}, { new: true })
+        const userUpdate = await userModal.findByIdAndUpdate(id , {email : email , name : name , phone : phone , avatar : avatar}, { new: true })
         res.status(200).json({
             status : 'Cập nhật thông tin thành công',
             user : userUpdate
@@ -71,6 +71,8 @@ const callUpdateUser = async(req , res) => {
         res.status(500).send(error)
     }
 }
+
+
 const callChangePassword = async(req , res) => {
     const {id , password , newPassword} = req.body
     try {
@@ -99,7 +101,7 @@ const callChangePassword = async(req , res) => {
 //             return res.status(400).json({ message: 'Mật khẩu cũ không đúng' });
 //         }
 //         // Cập nhật mật khẩu mới
-//         const passwordUpdate = await userModal.findByIdAndUpdate(id, { password:newPassword }, { new: true });
+//         const passwordUpdate = await userModal.findByIdAndUpdate(id , {password : newPassword}, { new: true })
 
 //         // Trả về kết quả
 //         res.status(200).json({
@@ -114,7 +116,6 @@ const callChangePassword = async(req , res) => {
 
 const callDeleteUser = async(req, res)=>{
     const _id = req.params
-  
     try {
         await userModal.findByIdAndDelete(_id)
          return res.status(200).send('Xoá tài khoản thành công')
@@ -144,5 +145,5 @@ const callFetchAllUser = async(req, res) => {
 
 
 module.exports = {
-    callCreateUser   , callUpdateUser, callDeleteUser , callLoginUser  , callLogoutUser , callFetchAllUser , callChangePassword
+    callCreateUser   , callUpdateUser, callDeleteUser , callLoginUser  , callLogoutUser , callFetchAllUser , callChangePassword 
 }
