@@ -40,5 +40,8 @@ router.get('/category/fetchAllCategory', callFetchAllCategory)
 router.post('/image/uploadImage', callUploadImage)
 router.get('/image/getImage' , callGetImage)
 
+//order
+router.post('/order/createOrder')
+
 
 module.exports = router

@@ -7,9 +7,9 @@ const callCreateUser = async (req, res) => {
     try {
         const { email, name, password, phone } = req.body;
         const existingUser = await userModal.findOne({ email }); // Đợi cho promise được giải quyết
-
+        
         if(existingUser) {
-            res.status(500).send("Email already exists");
+            res.status(500).send("Email này đã tồn tại");
             return;
         }
         const newUser = new userModal({

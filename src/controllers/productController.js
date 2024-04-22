@@ -26,9 +26,9 @@ const callCreateProduct = (req,res) => {
 }
 
 const callUpdateProduct = async(req, res) => {
-    const  {_id ,name , brand , sex ,price ,waterproof ,size ,quantity ,sold , description , image} = req.body
+    const  {_id ,name , brand , sex ,price ,waterproof ,size ,quantity ,sold , description , image , slider} = req.body
     try {
-        const productUpdate = await productModal.findByIdAndUpdate(_id ,{ name : name , brand :  brand , price : price , sex : sex , waterproof : waterproof , size : size , image : image , quantity:quantity , sold : sold ,description : description })
+        const productUpdate = await productModal.findByIdAndUpdate(_id ,{ name : name , brand :  brand , price : price , sex : sex , waterproof : waterproof , size : size , image : image , quantity:quantity , sold : sold ,description : description , slider : slider})
         res.status(200).json({
             status : 'UpdateSuccesFully', 
             userUpdate : productUpdate
