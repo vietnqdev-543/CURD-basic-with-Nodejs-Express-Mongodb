@@ -1,17 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const {getHomePage ,getCreateAUserPage, getViewListUserPage, getUpdatePage , getLoginPage, getProductPage} = require('../controllers/pageController')
-const {  callCreateUser , callLoginUser  , callUpdateUser , callDeleteUser, callLogoutUser , callFetchAllUser , callChangePassword } = require('../controllers/userController')
-const {callCreateProduct ,callUpdateProduct, callDeleteProduct , callFetchAllProduct, callFetchProductById, callHandleUpLoadFile } = require('../controllers/productController');
-const { callCreateCategory, callFetchAllCategory } = require('../controllers/categoryController');
-const { callUploadImage , callGetImage} = require('../controllers/imageController');
 
-router.get('/' , getHomePage)   
-router.get('/create' , getCreateAUserPage)   
-router.get('/view' , getViewListUserPage)   
-router.get('/update/:_id' , getUpdatePage)
-router.get('/login' , getLoginPage)
-router.get('/productPage' ,getProductPage)
+const {  callCreateUser , callLoginUser  , callUpdateUser , callDeleteUser, callLogoutUser , callFetchAllUser , callChangePassword } = require('../controllers/userController')
+
+const {callCreateProduct ,callUpdateProduct, callDeleteProduct , callFetchAllProduct, callFetchProductById, callHandleUpLoadFile } = require('../controllers/productController');
+
+const { callCreateCategory, callFetchAllCategory } = require('../controllers/categoryController');
+
+const { callCreateOrder, callFetchAllOrder, callGetOrderById, callSetStatusOrder, callCancelOrder } = require('../controllers/orderController');
 
 //user
 router.post('/user/createUser' , callCreateUser)
@@ -21,8 +17,6 @@ router.post('/user/changePassword' , callChangePassword)
 router.post('/user/logoutUser' , callLogoutUser)
 router.get('/user/fetchAllUser' , callFetchAllUser)
 router.post('/user/deleteUser/:_id' , callDeleteUser)
-
-
 
 //product
 router.post('/product/createProduct' , callCreateProduct)
@@ -36,12 +30,13 @@ router.post('/product/uploadFile' , callHandleUpLoadFile)
 router.post('/category/createCategory', callCreateCategory)
 router.get('/category/fetchAllCategory', callFetchAllCategory)
 
-//image
-router.post('/image/uploadImage', callUploadImage)
-router.get('/image/getImage' , callGetImage)
-
 //order
-router.post('/order/createOrder')
+router.post('/order/createOrder' , callCreateOrder)
+router.get('/order/fetchAllOrder' , callFetchAllOrder)
+router.get('/order/getOrderById/:_id', callGetOrderById)
+router.post('/order/setStatusOrder/"_id', callSetStatusOrder)
+router.post('/order/cancelOrder/:_id', callCancelOrder)
+
 
 
 module.exports = router
