@@ -34,7 +34,7 @@ router.get('/category/fetchAllCategory', callFetchAllCategory)
 router.post('/order/createOrder' , callCreateOrder)
 router.get('/order/fetchAllOrder' , callFetchAllOrder)
 router.get('/order/getOrderById/:_id', callGetOrderById)
-router.post('/order/setStatusOrder/"_id', callSetStatusOrder)
+router.post('/order/setStatusOrder', callSetStatusOrder)
 router.post('/order/cancelOrder/:_id', callCancelOrder)
 
 

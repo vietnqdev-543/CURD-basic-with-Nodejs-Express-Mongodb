@@ -53,11 +53,11 @@ const callGetOrderById = async (req, res) => {
     }
 }
 
-const callSetStatusOrder = (req, res)=>{
-    const _id = req.params._id
-    const orderStatus = orderModel.findByIdAndUpdate(_id ,{status : status})
+const callSetStatusOrder = async(req, res)=>{
+    const {_id , status} = req.body
+    const orderStatus = await orderModel.findByIdAndUpdate(_id ,{status : status})
     try {
-        res.send(200).json({
+        res.status(200).json({
             message:'set status  succesfully',
             data : orderStatus
         })
