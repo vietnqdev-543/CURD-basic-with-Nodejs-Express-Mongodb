@@ -1,21 +1,19 @@
-const mongoose = require('mongoose')
-const productSchema = new mongoose.Schema({
-    name : {type : String , require :true},
-    brand : {type : String , require :true},
-    sex : {type : String , require :true},
-    price : {type : Number, require :true} ,
-    waterproof : {type : String , require : true} ,
-    size : {type : String, require :true} ,
-    quantity: {type : Number , require : true} , 
-    sold : {type : Number , require : true } ,
-    description :{type : String , require :true} ,
-    slider : [{type : String , require :true}], 
-    image : {type : String , require :true} ,
-},
-{
-    timestamps : true 
-}
-)
+const mongoose = require('mongoose');
 
-const  productModal = mongoose.model("Product",productSchema)
-module.exports = productModal
+const productSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    brand: { type: String, required: true },
+    sex: { type: String, required: true },
+    price: { type: Number, required: true },
+    waterproof: { type: String, required: true },
+    size: { type: String, required: true },
+    quantity: { type: Number, required: true },
+    sold: { type: Number, required: true },
+    description: { type: String, required: true },
+    slider: [{ type: String, required: true }],
+    image: { type: String, required: true },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
+}, { timestamps: true });
+
+const productModal = mongoose.model("Product", productSchema);
+module.exports = productModal;

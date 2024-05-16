@@ -2,7 +2,7 @@ const orderModel = require('../models/orderModal')
 const productModal = require('../models/productModal')
 const callCreateOrder = (req, res)=>{
     const newOrder = new orderModel({
-        customerId : req.body.customerId  ,
+            customerId : req.body.customerId  ,
             customerName : req.body.customerName  ,
             customerAdress : req.body.customerAdress  ,
             customerPhone : req.body.customerPhone  ,
@@ -36,11 +36,11 @@ const callFetchAllOrder = async(req,res)=>{
     }
 }
 const callGetOrderById = async (req, res) => {
-    const customerId = req.params._id; // Corrected parameter name
+    const customerId = req.params._id; 
     try {
-        const listOrderById = await orderModel.find({ customerId: customerId }); // Corrected query
+        const listOrderById = await orderModel.find({ customerId: customerId }); 
 
-        if (!listOrderById) { // Check if no orders found
+        if (!listOrderById) { 
             return res.status(404).json({ message: 'No orders found for the specified customer ID' });
         }
 
@@ -54,8 +54,8 @@ const callGetOrderById = async (req, res) => {
 }
 
 const callSetStatusOrder = async(req, res)=>{
-    const {_id , status} = req.body
-    const orderStatus = await orderModel.findByIdAndUpdate(_id ,{status : status})
+    const {_id , status , shippingCode} = req.body
+    const orderStatus = await orderModel.findByIdAndUpdate(_id ,{status : status , shippingCode : shippingCode})
     try {
         res.status(200).json({
             message:'set status  succesfully',

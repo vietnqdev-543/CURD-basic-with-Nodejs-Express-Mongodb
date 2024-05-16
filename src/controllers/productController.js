@@ -1,5 +1,6 @@
 const categoryModal = require('../models/categoryModal')
 const productModal = require('../models/productModal')
+const userModal = require('../models/userModel')
 
 const callCreateProduct = (req,res) => {
     const newProduct = new productModal({
@@ -66,7 +67,6 @@ const callFetchAllProduct = async(req, res) => {
 }
 const callFetchProductById = async (req, res) => {
     const id = req.params.id;
-    const idnew =req.params
     const product = await productModal.findById(id)
     if(!product){
         return res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
@@ -92,5 +92,42 @@ const callFetchProductById = async (req, res) => {
         
     }
   } 
+  const callCreateComments = async (req, res) => {
+    const { _id, customerId, customerName, customerAvatar, text, rate } = req.body;
+    try {
+        const createComment = await productModal.findByIdAndUpdate(_id, {
+            $push: {
+                comments: {
+                    customerId: customerId,
+                    customerName: customerName,
+                    customerAvatar: customerAvatar,
+                    text: text,
+                    rate: rate
+                }
+            }
+        });
+
+        res.status(200).json({
+            message: 'Create comment successfully',
+            data: createComment
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
+const callGetCommentById  = async(req, res) => {
+    const _id = req.params._id
+    const listCommentById = await userModal.findById(_id)
+    try {          
+        res.status(200).json({
+            message: 'fetch cmt by id succes' ,
+            data : _id
+        })
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+
+
   
-module.exports = {callCreateProduct ,callUpdateProduct , callFetchAllProduct , callDeleteProduct , callFetchProductById , callHandleUpLoadFile} 
+module.exports = {callCreateProduct ,callUpdateProduct , callFetchAllProduct , callDeleteProduct , callFetchProductById , callHandleUpLoadFile , callCreateComments , callGetCommentById} 
